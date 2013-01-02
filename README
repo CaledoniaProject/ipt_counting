@@ -1,0 +1,10 @@
+This program intend to monitor how many rules are loaded on my system,
+
+Compile:
+    make
+
+To run:
+    ./ipt
+
+To count a single table:
+    ./ipt filter
