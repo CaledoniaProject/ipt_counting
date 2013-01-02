@@ -1,5 +1,7 @@
 This program intend to monitor how many rules are loaded on my system,
 
+Just grant sudo permission on it, it's much more secure than a script to do so ;-P
+
 Compile:
     make
 
