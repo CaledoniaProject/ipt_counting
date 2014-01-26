@@ -1,8 +1,12 @@
-CC=clang
+CC     = clang
+TARGET = ipt_check
+SRC    = ipt-check.c
 
 default:
-	$(CC) ipt-count.c -liptc -lip4tc -o ipt
+	$(CC) $(SRC) -liptc -lip4tc -o $(TARGET)
 
 clean:
-	rm -f *.o
+	rm -f *.o $(TARGET)
 
+run:
+	sudo $(TARGET)

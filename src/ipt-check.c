@@ -23,7 +23,7 @@
 /* Debugging prototype. */
 static int for_each_table (int (*func)(const char *tablename))
 {
-	int count = 1;
+	int err = 1;
 	FILE *procfile = NULL;
 	char tablename[255];
 
@@ -35,11 +35,17 @@ static int for_each_table (int (*func)(const char *tablename))
 		if (tablename[strlen(tablename) - 1] != '\n')
             continue;
 		tablename[strlen(tablename) - 1] = '\0';
-		count += func(tablename);
+		err += func(tablename);
 	}
 
 	fclose(procfile);
-	return count;
+	return err;
+}
+
+const char *default_policy (struct xtc_handle *handle)
+{
+    struct xt_counters counters;
+    return iptc_get_policy ("INPUT", &counters, handle);
 }
 
 static int do_output (const char *tablename)
@@ -55,7 +61,7 @@ static int do_output (const char *tablename)
 	if (!h)
     {
         puts ("Error initializing iptc!");
-        return -1;
+        return 1;
     }
 
 	for (chain = iptc_first_chain(h);
@@ -69,11 +75,13 @@ static int do_output (const char *tablename)
 		}
 	}
 
-	return count;
+	printf ("%s: policy %s, %d rules in total.\n", tablename, default_policy (h), count);
+
+    return 0;
 }
 
 int main(int argc, char *argv[])
 {
-    printf ("%d\n", argc == 2 ? do_output (argv[1]) : do_output (NULL));
+    do_output (argc == 2 ? argv[1] : NULL);
     return 0;
 }
