@@ -1,6 +1,6 @@
 ### ipt_count
 
-iptables rules count monitoring tool
+iptables rules monitoring tool, chain policy and rules count
 
 ### Compile
 
@@ -10,12 +10,13 @@ git clone https://github.com/CaledoniaProject/ipt_counting.git && make -C ipt_co
 
 ### Run
 
-Get rules count of the "filter" table,
+Get output for filter table:
 <pre>
-sudo ./ipt_counting/src/ipt filter
+sudo ./ipt_counting/src/ipt_check filter
 </pre>
 
-Get total rules count,
+Get an output for all chains
 <pre>
-sudo ./ipt_counting/src/ipt filter
+%> sudo ./ipt_counting/src/ipt_check
+filter: policy DROP, 32 rules in total.
 </pre>
